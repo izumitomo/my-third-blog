@@ -13,8 +13,16 @@ def login(request):
 
 
 def register(request):
-    data = RegisterForm()
-    return render(request, 'account/register.html', {'data': data})
+    if request.method == 'POST':
+        data = RegisterForm(request.POST)
+        if data.is_valid():
+            account = data.save(commit=False)
+            account.save()
+            return redirect('start')
+
+    else:
+        data = RegisterForm()
+    return render(request, 'account/register.html', {'form': data})
 
 
 def mypage(request):
