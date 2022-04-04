@@ -19,7 +19,6 @@ def register(request):
             account = data.save(commit=False)
             account.save()
             return redirect('start')
-
     else:
         data = RegisterForm()
     return render(request, 'account/register.html', {'form': data})
